@@ -33,7 +33,7 @@ Data includes:
 			> in doc#: 45454
 				56 number of times in "body-text"
 
-			then, it will be stored as "Anarch:1234:t2b199r3;45454:b56"
+			then, it will be stored as "Anarch: 1234:t2b199r3;45454:b56"
 
 
 My approach for this Project implementation:
