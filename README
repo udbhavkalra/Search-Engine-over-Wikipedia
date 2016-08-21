@@ -1,0 +1,43 @@
+Project involves searching two types of queries:
+
+1. Normal Plain text:
+   contains plain-text to search for in the wikipedia data given (~46GB).
+
+2. Parameterized query.
+   there are certain parameters processed including "title", "text(body)", "references", "external-links", "category", "{{cite", etc..
+   So, search query of this type includes search text in the form of:
+   		> t:sachin b:tendulkar r:cricket
+
+Data includes:
+> Documents in form of XML tags.
+	> Each document includes tags/text/links/urls/references.
+	> This data was processed and stored in the format "word:#docid:t#e#r#..."
+
+		> Each word is processed and if it is a stop word (example:is, the, and, or) removed and hence, not stored.
+		
+		Why these words needed to be removed ?
+		These words will be having very high frequency in English language. So,it would increase the index size which will not even account for the good tf-idf/other metric ratio value.
+
+		> Each word, is then stemmed so that words like using, use, usage will be in the same bucket and could be stored as a common word.
+
+		> Format includes "word", which is the word_string got after it has been processed.
+
+		> "#docid is the unique identification number for a particular document"
+
+		> t#e#r# includes "t" for "title", "b" for body-text, "e" for external links, "c" for category, "r" for references, and "#" is the count of that "word".
+		So, if the word "Anarch" is present:
+			> in doc#:1234
+				2 number of times in "title"
+				3 number of times in "reference"
+				199number of times in "body-text"
+			> in doc#: 45454
+				56 number of times in "body-text"
+
+			then, it will be stored as "Anarch:1234:t2b199r3;45454:b56"
+
+
+My approach for this Project implementation:
+
+> Storing the data in the mentioned pattern in the primary index.
+> Building the secondary index from the primary index.
+> Search for the query, in the indexes based on multiple metrics and get the best results in no more than 1 second.
