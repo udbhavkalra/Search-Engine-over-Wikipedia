@@ -1,7 +1,7 @@
 Project involves searching two types of queries:
 
 1. Normal Plain text:
-   contains plain-text to search for in the wikipedia data given (~46GB).
+   contains plain-text to search for in the wikipedia data given (~56GB).
 
 2. Parameterized query.
    there are certain parameters processed including "title", "text(body)", "references", "external-links", "category", "{{cite", etc..
